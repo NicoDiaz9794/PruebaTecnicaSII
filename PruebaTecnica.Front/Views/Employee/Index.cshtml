@@ -1,0 +1,65 @@
+﻿@model PruebaTecnica.Front.Models.EmployeeViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body ng-app="employeeApp" ng-controller="EmployeeController">
+    @Html.HiddenFor(x => Model.urlAPI)
+    <div class="container mt-5">
+        <h2 class="mb-4">Employee Search</h2>
+        <form id="employeeSearchForm" ng-submit="searchEmployee()">
+            <label for="employeeSearch">Search Employee (by ID, Name, or other fields):</label>
+            <!-- Input search bar -->
+            <input type="text" id="employeeSearch" class="form-control" ng-model="searchQuery" placeholder="Search Employees" />
+        </form>
+        <div class="mt-4">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Age</th>
+                        <th>DOB</th>
+                        <th>Salary</th>
+                        <th>Annual Salary</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="employee in employees | filter:searchQuery">
+                        <td><img ng-src="{{employee.imageUrl}}" width="50" height="50" alt="Employee Image" /></td>
+                        <td>{{employee.firstName}}</td>
+                        <td>{{employee.lastName}}</td>
+                        <td>{{employee.email}}</td>
+                        <td>{{employee.contactNumber}}</td>
+                        <td>{{employee.age}}</td>
+                        <td>{{employee.dob | date:'yyyy-MM-dd'}}</td>
+                        <td>{{employee.salary | currency}}</td>
+                        <td>{{employee.annualSalary | currency}}</td>
+                        <td>{{employee.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- AngularJS Application -->
+    <script src="~/js/Employee/Index.js" asp-append-version="true"></script>
+</body>
+</html>
